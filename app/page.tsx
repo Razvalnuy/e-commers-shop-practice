@@ -1,6 +1,8 @@
+import Container from "@/components/Container"
+
 const Home = () => {
 	return (
-		<div className="p-10 bg-shop-light-pink">
+		<Container className="bg-shop-light-pink">
 			<h2 className="text-xl font-semibold ">Home</h2>
 			<p>
 				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis
@@ -10,7 +12,7 @@ const Home = () => {
 				obcaecati eos, expedita debitis architecto sequi impedit ad atque!
 				Provident sapiente corporis hic ipsum explicabo?
 			</p>
-		</div>
+		</Container>
 	)
 }
 
