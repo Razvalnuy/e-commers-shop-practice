@@ -1,8 +1,12 @@
+import { SignInButton } from "@clerk/nextjs"
+
 const SignIn = () => {
 	return (
-		<button className="text-xs font-semibold hover:text-darkColor hoverEffect text-lightColor hover:cursor-pointer">
-			Login
-		</button>
+		<SignInButton mode="modal">
+			<button className="text-xs font-semibold hover:text-darkColor hoverEffect text-lightColor hover:cursor-pointer">
+				Login
+			</button>
+		</SignInButton>
 	)
 }
 

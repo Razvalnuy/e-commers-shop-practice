@@ -14,7 +14,6 @@ interface SideBarProps {
 	onClose: () => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SideMenu: FC<SideBarProps> = ({ isOpen, onClose }) => {
 	const pathname = usePathname() // проверка пути
 
