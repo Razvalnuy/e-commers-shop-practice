@@ -1,8 +1,10 @@
 import { Product } from "@/sanity.types"
 import { urlFor } from "@/sanity/lib/image"
-import { Flame } from "lucide-react"
+import { Flame, StarIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import AddToWishListButton from "./AddToWishListButton"
+import { Title } from "./ui/text"
 
 const ProductCard = ({ product }: { product: Product }) => {
 	return (
@@ -10,6 +12,8 @@ const ProductCard = ({ product }: { product: Product }) => {
 			<div className="relative group overflow-hidden bg-shop_light_bg">
 				{product?.images && (
 					<Image
+						// красивое наведение товара (зум)
+						className={`w-full h-64 object-contain overflow-hidden transition-transform bg-shop_light_bg hoverEffect ${product?.stock !== 0 ? "group-hover:scale-105" : "opacity-50"}`}
 						src={urlFor(product?.images[0]).url()}
 						alt="ProductImage"
 						loading="lazy"
@@ -17,6 +21,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 						height={700}
 					/>
 				)}
+				<AddToWishListButton product={product} />
 				{product?.status === "sale" && (
 					<p className="absolute top-2 left-2 z-10 text-sm border border-darkColor/50 px-2 rounded-full group-hover:border-shop_light_green group-hover:text-shop_light_green hoverEffect">
 						Sale!
@@ -40,7 +45,39 @@ const ProductCard = ({ product }: { product: Product }) => {
 					</Link>
 				)}
 			</div>
-			<div className="p-3">Product details</div>
+			<div className="p-3">
+				{product?.categories && (
+					<p className="uppercase line-clamp-1 text-xs text-shop_light_text">
+						{product?.categories?.map((cat) => cat).join(", ")}
+					</p>
+				)}
+				<Title className="text-sm line-clamp-1">{product?.name}</Title>
+				<div className="flex items-center gap-2">
+					<div className="flex items-center gap-0.5">
+						{[...Array(5)].map((_, index) => (
+							<StarIcon
+								size={12}
+								key={index}
+								className={
+									index < 4 ? "text-shop_light_green" : "text-shop_light_text"
+								}
+								fill={index < 4 ? "#93D991" : "#ababab"}
+							/>
+						))}
+					</div>
+					<p className="text-shop_light_text text-xs tracking-wide">
+						5 Отзывов
+					</p>
+				</div>
+				<div className="flex items-center gap-2.5">
+					<p className="font-medium">В наличии</p>
+					<p
+						className={`${product?.stock === 0 ? "text-red-600" : "text-shop_light_green/80 font-semibold"}`}
+					>
+						{(product?.stock as number) > 0 ? product?.stock : "Недоступен"}
+					</p>
+				</div>
+			</div>
 		</div>
 	)
 }
