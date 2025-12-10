@@ -3,7 +3,9 @@ import { urlFor } from "@/sanity/lib/image"
 import { Flame, StarIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import AddToCartButton from "./AddToCartButton"
 import AddToWishListButton from "./AddToWishListButton"
+import { PriceView } from "./PriceView"
 import { Title } from "./ui/text"
 
 const ProductCard = ({ product }: { product: Product }) => {
@@ -77,6 +79,8 @@ const ProductCard = ({ product }: { product: Product }) => {
 						{(product?.stock as number) > 0 ? product?.stock : "Недоступен"}
 					</p>
 				</div>
+				<PriceView price={product?.price} discount={10} />
+				<AddToCartButton product={product} className="w-36 rounded-full" />
 			</div>
 		</div>
 	)

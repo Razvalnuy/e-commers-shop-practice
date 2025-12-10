@@ -10,7 +10,7 @@ const HomeBanner = () => {
 				<Title>
 					Получи скидку до 50% на
 					<br />
-					Выбранные наушники
+					Выбранные Товары
 				</Title>
 				<Link
 					href={"/shop"}

@@ -10,22 +10,32 @@ const Logo = ({
 }) => {
 	return (
 		<Link href={"/"} className="inline-block">
-			<h2
-				className={cn(
-					"text-2xl text-shop_dark_green font-black tracking-wider uppercase hover:text-shop_light_green hoverEffect group font-sans",
-					className
-				)}
-			>
-				Razval
-				<span
+			<div className="flex flex-col relative">
+				<h2
 					className={cn(
-						"text-shop_light_green group-hover:text-shop_dark_green hoverEffect",
+						"text-2xl text-shop_dark_green font-black tracking-wider uppercase hover:text-shop_light_green hoverEffect group font-sans",
+						className
+					)}
+				>
+					Razval
+					<span
+						className={cn(
+							"text-shop_light_green group-hover:text-shop_dark_green hoverEffect",
+							spanDesign
+						)}
+					>
+						nuy
+					</span>
+				</h2>
+				<p
+					className={cn(
+						"text-shop_light_green font-black absolute right-0 top-7 tracking-wider uppercase text-xs",
 						spanDesign
 					)}
 				>
-					nuy
-				</span>
-			</h2>
+					Market
+				</p>
+			</div>
 		</Link>
 	)
 }
