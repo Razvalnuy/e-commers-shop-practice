@@ -2,10 +2,10 @@ import { Product } from "@/sanity.types"
 import { urlFor } from "@/sanity/lib/image"
 import { Flame, StarIcon } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import AddToCartButton from "./AddToCartButton"
 import AddToWishListButton from "./AddToWishListButton"
 import { PriceView } from "./PriceView"
+import { StatusBadge } from "./ui/status-badge"
 import { Title } from "./ui/text"
 
 const ProductCard = ({ product }: { product: Product }) => {
@@ -14,7 +14,6 @@ const ProductCard = ({ product }: { product: Product }) => {
 			<div className="relative group overflow-hidden bg-shop_light_bg">
 				{product?.images && (
 					<Image
-						// красивое наведение товара (зум)
 						className={`w-full h-64 object-contain overflow-hidden transition-transform bg-shop_light_bg hoverEffect ${product?.stock !== 0 ? "group-hover:scale-105" : "opacity-50"}`}
 						src={urlFor(product?.images[0]).url()}
 						alt="ProductImage"
@@ -24,30 +23,21 @@ const ProductCard = ({ product }: { product: Product }) => {
 					/>
 				)}
 				<AddToWishListButton product={product} />
-				{product?.status === "sale" && (
-					<p className="absolute top-2 left-2 z-10 text-sm border border-darkColor/50 px-2 rounded-full group-hover:border-shop_light_green group-hover:text-shop_light_green hoverEffect">
-						Sale!
-					</p>
-				)}
-				{product?.status === "new" && (
-					<p className="absolute top-2 left-2 z-10 text-sm border border-darkColor/50 px-2 rounded-full group-hover:border-shop_light_green group-hover:text-shop_light_green hoverEffect">
-						New!
-					</p>
-				)}
-				{product?.status === "hot" && (
-					<Link
-						href={"/deal"}
-						className="absolute top-2 left-2 z-10 border border-shop_orange/50 p-1 rounded-full group-hover:border-shop_orange hover:text-shop_dark_green hoverEffect"
-					>
+				<StatusBadge status={product?.status} text="Sale!" />
+				<StatusBadge status={product?.status} text="New!" />
+				<StatusBadge
+					status={product?.status}
+					icon={
 						<Flame
 							size={18}
 							fill="#fb8c08"
 							className="text-shop_orange/50 group-hover:text-shop_orange hoverEffect"
 						/>
-					</Link>
-				)}
+					}
+					isLink
+				/>
 			</div>
-			<div className="p-3">
+			<div className="p-3 flex flex-col gap-2">
 				{product?.categories && (
 					<p className="uppercase line-clamp-1 text-xs text-shop_light_text">
 						{product?.categories?.map((cat) => cat).join(", ")}
@@ -55,7 +45,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 				)}
 				<Title className="text-sm line-clamp-1">{product?.name}</Title>
 				<div className="flex items-center gap-2">
-					<div className="flex items-center gap-0.5">
+					<div className="flex items-center">
 						{[...Array(5)].map((_, index) => (
 							<StarIcon
 								size={12}
@@ -79,7 +69,12 @@ const ProductCard = ({ product }: { product: Product }) => {
 						{(product?.stock as number) > 0 ? product?.stock : "Недоступен"}
 					</p>
 				</div>
-				<PriceView price={product?.price} discount={10} />
+
+				<PriceView
+					price={product?.price}
+					discount={product?.discount}
+					className="text-sm"
+				/>
 				<AddToCartButton product={product} className="w-36 rounded-full" />
 			</div>
 		</div>
